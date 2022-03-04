@@ -26,7 +26,62 @@ async function create(req, res) {
   res.status(201).json({ data: response[0] });
 }
 
+
+/**
+ * validates then stores a reservation if it exists by its id
+ * returns next()
+ */
+async function validateReservation(req, res, next) {
+  const { reservation_id } = req.params;
+  const reservation = await service.read(Number(reservation_id));
+
+  if (!reservation) {
+    return next({
+      status: 404,
+      message: `reservation id ${reservation_id} does not exist`
+    });
+  }
+
+  res.locals.reservation = reservation;
+
+  next();
+}
+
+
+/**
+ * Read handler for a specified reservation
+ */
+async function read(req, res) {
+  res.status(200).json({ data: res.locals.reservation })
+}
+
+
+/**
+ * Update handler for a reservations status
+ */
+async function updateStatus(req, res) {
+  await service.updateStatus(res.locals.reservation.reservation_id, req.body.data.status);
+
+  res.status(200).json({ data: { status: req.body.data.status } });
+}
+
+
+/**
+ * Update/Edit handler for a full reservation
+ */
+async function update(req, res) {
+  const response = await service.update(res.locals.reservation.reservation_id, req.body.data);
+
+  res.status(200).json({ data: response });
+}
+
+
+
+
 module.exports = {
   list: asyncErrorBoundary(list),
-  create: asyncErrorBoundary(create)
+  create: asyncErrorBoundary(create),
+  read: [asyncErrorBoundary(validateReservation), asyncErrorBoundary(read)],
+  update: [asyncErrorBoundary(validateReservation), asyncErrorBoundary(update)],
+  updateStatus: [asyncErrorBoundary(validateReservation), asyncErrorBoundary(updateStatus)]
 };
