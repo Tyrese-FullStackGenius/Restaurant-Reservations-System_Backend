@@ -44,7 +44,7 @@ async function validateReservation(req, res, next) {
 
   res.locals.reservation = reservation;
 
-  next();
+  return next();
 }
 
 

@@ -35,7 +35,7 @@ async function validateTable(req, res, next) {
 
     res.locals.table = table;
 
-    next();
+    return next();
 }
 
 /**
@@ -50,7 +50,7 @@ async function seatTable(req, res) {
 
 async function clearTable(req, res) {
     await service.updateReservationStatus(res.locals.table.reservation_id, "finished");
-    await service.freeTable(res.locals.tabe.table_id);
+    await service.freeTable(res.locals.table.table_id);
 
     res.status(200).json({ data: { status: "finished "} });
 }
@@ -76,7 +76,7 @@ async function validateReservation(req, res, next) {
 
     res.locals.reservation = reservation;
     
-    next();
+    return next();
 }
 
 
