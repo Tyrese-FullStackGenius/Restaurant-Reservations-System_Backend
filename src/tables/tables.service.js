@@ -7,7 +7,8 @@ function list() {
 function create(table) {
   return knex("tables")
     .insert(table)
-    .returning("*");
+    .returning("*")
+    .then((createdRecord) => createdRecord[0]);
 }
 
 function read(table_id) {
