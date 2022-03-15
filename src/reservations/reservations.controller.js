@@ -225,12 +225,11 @@ async function read(req, res) {
  * Update handler for a reservations status
  */
 async function updateStatus(req, res) {
-  await service.updateStatus(
-    res.locals.reservation.reservation_id,
-    req.body.data.status
-  );
+  const newStatus = req.body.data.status;
+  const { reservation_id } = res.locals.reservation;
+  let data = await service.updateStatus(reservation_id, newStatus);
 
-  res.status(200).json({ data: { status: req.body.data.status } });
+  res.status(200).json({ data: { status: data } });
 }
 
 /**
@@ -247,9 +246,20 @@ async function update(req, res) {
 
 module.exports = {
   list: asyncErrorBoundary(list),
-  create: [asyncErrorBoundary(validateData), asyncErrorBoundary(validateBody), asyncErrorBoundary(validateDate), asyncErrorBoundary(create)],
+  create: [
+    asyncErrorBoundary(validateData),
+    asyncErrorBoundary(validateBody),
+    asyncErrorBoundary(validateDate),
+    asyncErrorBoundary(create),
+  ],
   read: [asyncErrorBoundary(validateReservation), asyncErrorBoundary(read)],
-  update: [asyncErrorBoundary(validateData), asyncErrorBoundary(validateReservation), asyncErrorBoundary(validateBody), asyncErrorBoundary(validateDate), asyncErrorBoundary(update)],
+  update: [
+    asyncErrorBoundary(validateData),
+    asyncErrorBoundary(validateReservation),
+    asyncErrorBoundary(validateBody),
+    asyncErrorBoundary(validateDate),
+    asyncErrorBoundary(update),
+  ],
   updateStatus: [
     asyncErrorBoundary(validateData),
     asyncErrorBoundary(validateReservation),

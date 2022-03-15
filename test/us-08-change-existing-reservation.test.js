@@ -22,12 +22,14 @@ describe("US-08 - Change an existing reservation", () => {
   describe("PUT /reservations/:reservation_id", () => {
     test("returns 404 if reservation does not exist", async () => {
       const data = {
+        created_at: "2020-12-10T08:30:32.326Z",
         first_name: "Mouse",
         last_name: "Whale",
         mobile_number: "1231231235",
-        reservation_date: "2026-12-30",
-        reservation_time: "18:00",
+        reservation_date:  "2026-12-30T06:00:00.000Z",
+        reservation_time: "18:00:00",
         people: 2,
+        updated_at: "2020-12-10T08:30:32.326Z"
       };
 
       const response = await request(app)
