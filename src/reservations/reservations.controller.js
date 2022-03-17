@@ -233,7 +233,7 @@ async function updateStatus(req, res) {
 }
 
 /**
- * Update/Edit handler for a full reservation
+ * Update//Edit handler for a full reservation
  */
 async function update(req, res) {
   const response = await service.update(
