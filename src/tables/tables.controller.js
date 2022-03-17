@@ -168,6 +168,7 @@ async function validateTableIsSeated(req, res, next) {
       message: "this table is not occupied",
     });
   }
+  next();
 }
 
 /**
