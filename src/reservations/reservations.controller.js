@@ -225,9 +225,9 @@ async function read(req, res) {
  * Update handler for a reservations status
  */
  async function updateStatus(req, res) {
-	await service.update(res.locals.reservation.reservation_id, req.body.data.status);
+	const status = await service.updateStatus(res.locals.reservation.reservation_id, req.body.data.status);
 
-	res.status(200).json({ data: { status: req.body.data.status } });
+	res.status(200).json({ data: { status: status } });
 }
 
 /**
