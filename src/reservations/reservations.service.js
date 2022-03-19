@@ -28,10 +28,10 @@ function read(reservation_id) {
   return knex("reservations").where({ reservation_id }).first();
 }
 
-function update(reservation_id, reservation) {
+function update(reservation_id, newReservation) {
   return knex("reservations")
     .where({ reservation_id })
-    .update({ ...reservation })
+    .update(newReservation)
     .returning("*");
 }
 

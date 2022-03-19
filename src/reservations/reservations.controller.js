@@ -224,10 +224,14 @@ async function read(req, res) {
 /**
  * Update handler for a reservations status
  */
- async function updateStatus(req, res) {
-	const status = await service.updateStatus(res.locals.reservation.reservation_id, req.body.data.status);
+async function updateStatus(req, res) {
+  const { status } = req.body.data;
+  const newStatus = await service.updateStatus(
+    res.locals.reservation.reservation_id,
+    status
+  );
 
-	res.status(200).json({ data: { status: status } });
+  res.status(200).json({ data: { status: newStatus.toString() } });
 }
 
 /**
@@ -239,7 +243,7 @@ async function update(req, res) {
     req.body.data
   );
 
-  res.status(200).json({ data: response });
+  res.status(200).json({ data: response[0] });
 }
 
 module.exports = {
