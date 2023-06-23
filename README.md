@@ -1,6 +1,6 @@
 # Capstone: Restaurant Reservation System Backend
 
-- code for the back-end of the final capstone project in the Thinkful curriculum.
+- code for the back end of the final capstone project in the Thinkful curriculum.
 
 ### Restaurant Reservations-System-Back-End - created with PostgreSQL, Express, Node.js (with npm packages) --> using HTML5, JavaScript, Bootstrap
 ### --> A full-stack restaurant reservation system for restaurant operators to use to keep track of reservations and tables at the restaurant given restaurant schedule as parameters.
@@ -11,7 +11,7 @@
 
 ### GET: ?date=YYYY-MM-DD
 
-> Returns a list of reservations made for given date.
+> Returns a list of reservations made for a given date.
 
 ### GET: ?mobile_number={mobile-number} 
 > Returns a full or partial phone number matched to a reservation(s)
@@ -20,8 +20,8 @@
 
 ** All requests that send a reservation object will have data validation to pass.
 > - First name and last name have no constraints.
-> - The mobile number must be in hyphenated format. xxx-xxxx or xxx-xxx-xxxx.
-> - Date must be in the format YYYY-MM-DD. Also, the date must occur either on the current day or in the future.
+> - The mobile number must be in a hyphenated format. xxx-xxxx or xxx-xxx-xxxx.
+> - The date must be in the format YYYY-MM-DD. Also, the date must occur either on the current day or in the future.
 > - The time must be in 24H (HH:MM) format. Also, if the date property is on today's date, the time must not have passed on that day when the request is made.
 > - People must be an integer greater than 0.
 > - Returns status 201 and the created reservation object.
@@ -62,14 +62,14 @@ ___
 ## /tables/:table_id
 
 ### GET
-> If the table defined by it's table_id in the request URL exists, it returns the reservation object.
+> If the table defined by its table_id in the request URL exists, it returns the reservation object.
 
 ___
 
 ## /tables/:table_id/seat
 
 ### PUT
-> - If the table_id passed in the parameters exists, the reservation_id passed in the body exists, and the table is currently not occupied as well as the reservation belonging to the reservation_id is only booked, and **not** seated, finished, or cancelled: the table will be updated with the reservation_id.
+> - If the table_id passed in the parameters exists, the reservation_id passed in the body exists, and the table is currently not occupied as well as the reservation belonging to the reservation_id is only booked, and **not** seated, finished, or canceled: the table will be updated with the reservation_id.
 > - When the table is updated with a reservation_id, that means the reservation is now seated at a table. Accordingly, the reservation's status will also be updated to reflect its "seated" status.
 > - Returns status 200 and the updated reservation, not the table.
 
